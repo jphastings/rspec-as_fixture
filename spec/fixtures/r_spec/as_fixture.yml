@@ -1,0 +1,6 @@
+- title: when a context is loaded as a fixture
+  fixture_loaded: true
+  level: original
+- title: when a sub-context also loads a fixture
+  sub_fixture_loaded: true
+  level: sub
