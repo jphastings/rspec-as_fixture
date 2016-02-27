@@ -1,5 +1,7 @@
 # Rspec::AsFixture
 
+[![Build Status](https://travis-ci.org/jphastings/rspec-as_fixture.svg?branch=master)](https://travis-ci.org/jphastings/rspec-as_fixture) [![Test Coverage](https://codeclimate.com/github/jphastings/rspec-as_fixture/badges/coverage.svg)](https://codeclimate.com/github/jphastings/rspec-as_fixture/coverage) [![Code Climate](https://codeclimate.com/github/jphastings/rspec-as_fixture/badges/gpa.svg)](https://codeclimate.com/github/jphastings/rspec-as_fixture)
+
 Load your rspec `let` variables from fixture files defined by your context.
 
 By defining a fixtures yaml file:
