@@ -1,3 +1,12 @@
 language: ruby
 rvm:
-  - 2.2.2
+- 2.2.2
+- 2.3.0
+deploy:
+  provider: rubygems
+  api_key:
+    secure: PFzEEVft4TjfJe1p7l+qLeS6v/WsCagvXvPNtTE8OSFBYej+j9h5gUy6qWBI7trY4OuOtET/UyNBoWSFXkkUj8FhBA4/hcARG+cacE6/H6nu1/4GkcM1S80V57WDWzJw4Z5wriT4Dg4wWQUpLpOER35lMalu41gPodg1M5LrEpl0Es4yXKAmU5ebsbOKBgz1815UTB+RAJCxQxIVlFdecIB3SD3XCIS6efALvftY84oUVkX1eZKu46u8PDC9AlBUh9PWeqBgplMfz3ol4mOzdbxBnFxVQCxGCFukhFx8HMqZWODMs6wH3V45MZSpSl8j7Lq0nD2UaRkNT5g7WfWQgSreqTBCDdR55dF6v8gYQ5bRIpB+LYakwpJwnXJk/Cjs4nyN10EVNdM10J5AyKlXnCufEvf2n/PmLRVEt6B8+tue3v75N5VTnXF+DSZiyKrvjDGMjOUyQRx0dkLt/4USMTiupwj10xzgK9RPuCSR0b6ELaN2QxHoEEq7knOFO69st3BNxWuPISwByKH4UlzwhvNMzfhb2lbav3kzKTBJdMowswP8xZK84vJiJKzPYmzMKOCK2LK/YXmY9UOxbclnjA1Q7o6z51NVFWVXtj/eDF4CoMP8t1wQhRP03oaqVapTOdzbSo7ZYpdCg8YeBJIR5w+zGici4+QCduS0fmvTO1g=
+  gem: rspec-as_fixture
+  on:
+    tags: true
+    repo: jphastings/rspec-as_fixture
