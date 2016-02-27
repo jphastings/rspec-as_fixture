@@ -42,7 +42,7 @@ module RSpec
         }.flatten
       end
 
-      fixture = @fixtures[source].find { |fixture| fixture['title'] == title }
+      fixture = @fixtures[source].find { |f| f['title'] == title }
       raise "No fixture for #{klass} (at #{path}) with the title '#{title}'" if fixture.nil?
       fixture.select { |k, _| k != 'title' }
     end
