@@ -1,7 +1,5 @@
 describe RSpec::AsFixture do
   context 'when included in an RSpec suite' do
-    include described_class
-
     context 'when a context is loaded as a fixture', :as_fixture do
       it 'should load the fixture file with the base describe block\'s name' do
         expect(fixture_loaded).to eq true
@@ -12,12 +10,12 @@ describe RSpec::AsFixture do
           expect(fixture_loaded).to eq true
         end
 
-        it 'should load the sub-context fixtures' do
-          expect(sub_fixture_loaded).to eq true
+        it 'should not load the sub-context fixtures' do
+          expect { sub_fixture_loaded }.to raise_error(NameError)
         end
 
-        it 'should override the original fixture with the sub fixture' do
-          expect(level).to eq 'sub'
+        it 'should not override the original fixture with the sub fixture' do
+          expect(level).to eq 'original'
         end
       end
     end

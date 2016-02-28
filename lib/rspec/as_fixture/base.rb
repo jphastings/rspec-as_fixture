@@ -7,19 +7,23 @@ module RSpec
       attr_accessor :fixtures_dir
 
       def included(klass)
+        raise if (@@loaded rescue false)
+        @@loaded = true
         klass.around do |example|
-          fixture_title = nil
+          title = nil
           group = example.metadata[:example_group]
           loop do
-            fixture_title ||= group[:description] if group[:as_fixture]
+            title = group[:description] if group[:as_fixture]
             break if group[:parent_example_group].nil?
             group = group[:parent_example_group]
           end
 
-          if fixture_title
-            properties = load_fixture(klass: group[:description], title: fixture_title)
+          described_class = group[:description]
+          source = described_class.gsub(/::/, '/').gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').gsub(/([a-z\d])([A-Z])/,'\1_\2').tr("-", "_").downcase
+          load_fixture_file(source)
 
-            properties.each do |key, value|
+          if title     
+            fixture_properties(source, title).each do |key, value|
               klass.let(key) { value }
             end
           end
@@ -31,8 +35,7 @@ module RSpec
 
     private
 
-    def load_fixture(klass:, title:)
-      source = klass.gsub(/::/, '/').gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').gsub(/([a-z\d])([A-Z])/,'\1_\2').tr("-", "_").downcase
+    def load_fixture_file(source)
       path = File.join(AsFixture.fixtures_dir, "#{source}.{yml,yaml}")
 
       @fixtures ||= {}
@@ -42,9 +45,12 @@ module RSpec
         }.flatten
       end
 
-      fixture = @fixtures[source].find { |f| f['title'] == title }
-      raise "No fixture for #{klass} (at #{path}) with the title '#{title}'" if fixture.nil?
-      fixture.select { |k, _| k != 'title' }
+      raise "No fixture for #{source} (at #{path})" if @fixtures[source].empty?
+    end
+
+    def fixture_properties(source, title)
+      raise "No fixture for #{source} with title #{title}" unless @fixtures[source]
+      @fixtures[source].find { |f| f['title'] == title }.select { |k, _| k != 'title' }
     end
   end
 end
